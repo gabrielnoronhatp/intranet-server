@@ -35,7 +35,10 @@ def create_app():
         # Assumindo que o schema 'intra' já existe
         db.create_all()
 
-    from app.routes.contract_routes import api
+    # Importar e inicializar a API
+    from app.routes.api import api
+    from app.routes import contract_routes, service_type_routes
+    
     api.init_app(app)
 
     return app 

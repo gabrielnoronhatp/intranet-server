@@ -1,22 +1,18 @@
-from flask_restx import Api, Resource, Namespace, fields
+from flask_restx import Resource, Namespace, fields
 from flask_cors import cross_origin
 from app.controllers.contract_controller import ContractController
+from app.routes.api import api
 
-
-api = Api(
-    title='Intranet-API',
-    version='1.0',
-    description='API para gerenciamento de serviços da INTRANET',
-    doc='/',
-    prefix='/api' 
-)
+# Criar namespace
 ns = Namespace('contracts', description='Operações de contratos')
+
+# Registrar namespace na API principal
 api.add_namespace(ns)
 
-
-contract_model = api.model('Contract', {
+# Modelo usando o namespace
+contract_model = ns.model('Contract', {
     'id': fields.Integer(readonly=True, description='ID do contrato'),
-    'idtipo': fields.Integer(required=True, description='Tipo do contrato'),
+    'idtipo': fields.Integer(required=True, description='Tipo do contrato (referência à tabela ctt_tipo_contrato)'),
     'idfilial': fields.Integer(required=True, description='ID da filial'),
     'idfornecedor': fields.Integer(required=True, description='ID do fornecedor'),
     'nome': fields.String(required=True, description='Nome'),
