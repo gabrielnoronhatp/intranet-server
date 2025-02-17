@@ -11,14 +11,14 @@ def create_app():
     # Configurar CORS
     CORS(app, resources={
         r"/*": {
-            "origins": "*",  # Em produção, especifique os domínios permitidos
+            "origins": "*",  
             "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
             "allow_headers": ["Content-Type", "Authorization", "Access-Control-Allow-Credentials"],
             "supports_credentials": True
         }
     })
 
-    # Configurar headers de segurança
+
     @app.after_request
     def after_request(response):
         response.headers.add('Access-Control-Allow-Origin', '*')
@@ -31,11 +31,9 @@ def create_app():
     db.init_app(app)
 
     with app.app_context():
-        # Removemos a criação do schema e apenas criamos as tabelas
-        # Assumindo que o schema 'intra' já existe
         db.create_all()
 
-    # Importar e inicializar a API
+  
     from app.routes.api import api
     from app.routes import contract_routes, service_type_routes
     
