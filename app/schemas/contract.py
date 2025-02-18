@@ -2,9 +2,11 @@ from marshmallow import Schema, fields
 
 class ContractSchema(Schema):
     id = fields.Int(dump_only=True)
-    idtipo = fields.Int(required=True)
-    idfilial = fields.Int(required=True)
-    idfornecedor = fields.Int(required=True)
+    idtipo = fields.Str(required=True)
+    idfilial = fields.Str(required=True)
+    idfornecedor = fields.Str(required=True)
+    dia_vencimento = fields.Str(required=True)
+    valor_contrato = fields.Decimal(places=2)
     nome = fields.Str(required=True)
     telefone1 = fields.Str()
     telefone2 = fields.Str()

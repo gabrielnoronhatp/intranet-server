@@ -12,12 +12,27 @@ class ServiceType(db.Model):
     # Relacionamento com Contract
     contracts = db.relationship('Contract', backref='service_type', lazy=True)
 
+    @property
+    def descricao_formatada(self):
+        return f"{self.id}-{self.descricao.strip().lower()}"
+
+    @property
+    def descricao_simples(self):
+        return self.descricao.strip().lower()
+
     def to_dict(self):
         return {
             'id': self.id,
-            'descricao': self.descricao,
+            'descricao': self.descricao_formatada,
+            'last_update': self.last_update
+        }
+
+    def to_dict_with_id(self):
+        return {
+            'id': self.id,
+            'descricao': self.descricao_formatada,
             'last_update': self.last_update
         }
 
     def __repr__(self):
-        return f'<ServiceType {self.descricao}>' 
+        return f'<ServiceType {self.descricao_formatada}>' 

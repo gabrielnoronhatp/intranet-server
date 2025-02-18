@@ -7,26 +7,8 @@ db = SQLAlchemy()
 
 def create_app():
     app = Flask(__name__)
+    CORS(app, resources={r"/*": {"origins": ["http://localhost:3000"], "supports_credentials": True}})
     
-    # Configurar CORS
-    CORS(app, resources={
-        r"/*": {
-            "origins": "*",  
-            "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-            "allow_headers": ["Content-Type", "Authorization", "Access-Control-Allow-Credentials"],
-            "supports_credentials": True
-        }
-    })
-
-
-    @app.after_request
-    def after_request(response):
-        response.headers.add('Access-Control-Allow-Origin', '*')
-        response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
-        response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
-        response.headers.add('Access-Control-Allow-Credentials', 'true')
-        return response
-
     app.config.from_object(Config)
     db.init_app(app)
 

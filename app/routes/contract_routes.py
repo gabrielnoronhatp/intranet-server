@@ -3,18 +3,17 @@ from flask_cors import cross_origin
 from app.controllers.contract_controller import ContractController
 from app.routes.api import api
 
-# Criar namespace
-ns = Namespace('contracts', description='Operações de contratos')
 
-# Registrar namespace na API principal
+ns = Namespace('contracts', description='Operações de contratos')
 api.add_namespace(ns)
 
-# Modelo usando o namespace
+
 contract_model = ns.model('Contract', {
     'id': fields.Integer(readonly=True, description='ID do contrato'),
-    'idtipo': fields.Integer(required=True, description='Tipo do contrato (referência à tabela ctt_tipo_contrato)'),
-    'idfilial': fields.Integer(required=True, description='ID da filial'),
-    'idfornecedor': fields.Integer(required=True, description='ID do fornecedor'),
+    'idtipo': fields.String(required=True, description='ID do tipo de serviço'),
+    'tipo_servico': fields.String(readonly=True, description='Tipo de serviço formatado'),
+    'idfilial': fields.String(required=True, description='ID da filial'),
+    'idfornecedor': fields.String(required=True, description='ID do fornecedor'),
     'nome': fields.String(required=True, description='Nome'),
     'telefone1': fields.String(description='Telefone principal'),
     'telefone2': fields.String(description='Telefone secundário'),
@@ -46,7 +45,6 @@ class ContractList(Resource):
     @ns.doc('list_contracts')
     @ns.marshal_list_with(contract_model)
     def get(self):
-        """Lista todos os contratos"""
         return controller.get_all_contracts()
 
     @cross_origin()
@@ -54,7 +52,6 @@ class ContractList(Resource):
     @ns.expect(contract_model)
     @ns.marshal_with(contract_model, code=201)
     def post(self):
-        """Cria um novo contrato"""
         return controller.create_contract()
 
 @ns.route('/<int:contract_id>')
@@ -63,18 +60,15 @@ class Contract(Resource):
     @ns.doc('get_contract')
     @ns.marshal_with(contract_model)
     def get(self, contract_id):
-        """Obtém um contrato específico"""
         return controller.get_contract(contract_id)
 
     @ns.doc('update_contract')
     @ns.expect(contract_model)
     @ns.marshal_with(contract_model)
     def put(self, contract_id):
-        """Atualiza um contrato"""
         return controller.update_contract(contract_id)
 
     @ns.doc('delete_contract')
     @ns.response(204, 'Contrato removido')
     def delete(self, contract_id):
-        """Remove um contrato"""
         return controller.delete_contract(contract_id) 

@@ -11,7 +11,7 @@ api.add_namespace(ns)
 # Modelo usando o namespace
 service_type_model = ns.model('ServiceType', {
     'id': fields.Integer(readonly=True, description='ID do tipo de serviço'),
-    'descricao': fields.String(required=True, description='Descrição do tipo de serviço'),
+    'descricao': fields.String(required=True, description='ID - Descrição do tipo de serviço'),
     'last_update': fields.DateTime(readonly=True, description='Data da última atualização')
 })
 

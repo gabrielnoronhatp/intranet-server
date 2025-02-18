@@ -22,15 +22,18 @@ class ServiceTypeController:
 
     def create(self):
         try:
-            service_type_data = request.get_json()
-            return self.service.create(service_type_data), 201
+            data = request.get_json()
+            # Remove o ID se estiver na descrição (formato: "id - descricao")
+            if 'descricao' in data and ' - ' in data['descricao']:
+                data['descricao'] = data['descricao'].split(' - ', 1)[1]
+            return self.service.create(data), 201
         except Exception as e:
             abort(400, message=str(e))
 
     def update(self, id):
         try:
-            service_type_data = request.get_json()
-            return self.service.update(id, service_type_data)
+            data = request.get_json()
+            return self.service.update(id, data)
         except ValueError as e:
             abort(404, message=str(e))
         except Exception as e:
