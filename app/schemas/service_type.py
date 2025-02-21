@@ -7,7 +7,8 @@ service_type_ns = Namespace('service-types', description='Service Types operatio
 
 class ServiceTypeSchema(Schema):
     id = fields.Int(dump_only=True)
-    descricao = fields.Method('get_formatted_description', dump_only=True)
+    descricao = fields.String()
+    formatted_descricao = fields.Method('get_formatted_description', dump_only=True)
     last_update = fields.DateTime(dump_only=True)
 
     def get_formatted_description(self, obj):

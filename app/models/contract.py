@@ -11,6 +11,7 @@ class Contract(db.Model):
     idfilial = db.Column(db.String(100))
     dia_vencimento = db.Column(db.String(2))
     idfornecedor = db.Column(db.String(10))
+    banco = db.Column(db.String(100))
     valor_contrato = db.Column(db.Numeric(14, 2))
     nome = db.Column(db.String(200))
     telefone1 = db.Column(db.String(20))
@@ -52,6 +53,7 @@ class Contract(db.Model):
             'endereco1': self.endereco1,
             'endereco2': self.endereco2,
             'email1': self.email1,
+            'banco': self.banco,
             'email2': self.email2,
             'data_venc_contrato': self.data_venc_contrato,
             'indice': self.indice,

@@ -1,17 +1,18 @@
-from decouple import config
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 class Config:
     # Database
-    PG_USER = config('PG_USER')
-    PG_PASSWORD = config('PG_PASSWORD')
-    PG_HOST = config('PG_HOST')
-    PG_PORT = config('PG_PORT')
-    PG_DATABASE = config('PG_DATABASE')
+    PG_USER = os.getenv('PG_USER')
+    PG_PASSWORD = os.getenv('PG_PASSWORD')
+    PG_HOST = os.getenv('PG_HOST')
+    PG_PORT = os.getenv('PG_PORT')
+    PG_DATABASE = os.getenv('PG_DATABASE')
     SQLALCHEMY_DATABASE_URI = f'postgresql://{PG_USER}:{PG_PASSWORD}@{PG_HOST}:{PG_PORT}/{PG_DATABASE}'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SCHEMA_NAME = 'intra'
-    SECRET_KEY = config('SECRET_KEY')
+    SECRET_KEY = os.getenv('SECRET_KEY')
     CORS_HEADERS = 'Content-Type'
-    CORS_ORIGINS = "*"
-    
-    
+    CORS_ORIGINS = "*" 

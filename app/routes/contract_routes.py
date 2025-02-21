@@ -22,6 +22,7 @@ contract_model = ns.model('Contract', {
     'email1': fields.String(description='Email principal'),
     'email2': fields.String(description='Email secundário'),
     'data_venc_contrato': fields.Date(description='Data de vencimento'),
+    'banco': fields.String(description='Banco'),
     'indice': fields.String(description='Índice'),
     'forma_pag': fields.String(description='Forma de pagamento'),
     'agencia': fields.String(description='Agência'),
