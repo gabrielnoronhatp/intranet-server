@@ -1,4 +1,4 @@
-from flask import request
+from flask import request, jsonify
 from flask_restx import abort
 from app.services.contract_service import ContractService
 
@@ -43,4 +43,38 @@ class ContractController:
         except ValueError as e:
             abort(404, message=str(e))
         except Exception as e:
-            abort(500, message=str(e)) 
+            abort(500, message=str(e))
+
+    def upload_contract_file(self, contract_id):
+        try:
+            if 'file' not in request.files:
+                abort(400, message="Nenhum arquivo fornecido")
+            
+            file = request.files['file']
+            if file.filename == '':
+                abort(400, message="Nenhum arquivo selecionado")
+
+            # Verifica extensões permitidas
+            allowed_extensions = {'pdf', 'doc', 'docx', 'xls', 'xlsx'}
+            if not self._allowed_file(file.filename, allowed_extensions):
+                abort(400, message="Tipo de arquivo não permitido")
+
+            result = self.service.upload_contract_file(contract_id, file)
+            return jsonify(result)
+        except ValueError as e:
+            abort(404, message=str(e))
+        except Exception as e:
+            abort(500, message=str(e))
+
+    def get_contract_files(self, contract_id):
+        try:
+            files = self.service.list_contract_files(contract_id)
+            return jsonify(files)
+        except ValueError as e:
+            abort(404, message=str(e))
+        except Exception as e:
+            abort(500, message=str(e))
+
+    def _allowed_file(self, filename, allowed_extensions):
+        return '.' in filename and \
+            filename.rsplit('.', 1)[1].lower() in allowed_extensions

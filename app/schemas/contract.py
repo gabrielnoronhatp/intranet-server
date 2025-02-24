@@ -10,6 +10,8 @@ class ContractSchema(Schema):
     nome = fields.Str(required=True)
     telefone1 = fields.Str()
     banco = fields.Str()
+
+    
     telefone2 = fields.Str()
     endereco1 = fields.Str()
     endereco2 = fields.Str()

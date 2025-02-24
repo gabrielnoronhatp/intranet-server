@@ -40,6 +40,15 @@ contract_model = ns.model('Contract', {
 
 controller = ContractController()
 
+# Definindo o modelo para a resposta de arquivo
+file_model = ns.model('File', {
+    'filename': fields.String(description='Nome do arquivo'),
+    'file_url': fields.String(description='URL do arquivo no S3'),
+    'size': fields.Integer(description='Tamanho do arquivo em bytes'),
+    'last_modified': fields.DateTime(description='Data da última modificação'),
+    'contract_id': fields.Integer(description='ID do contrato')
+})
+
 @ns.route('/')
 class ContractList(Resource):
     @cross_origin()
@@ -72,4 +81,25 @@ class Contract(Resource):
     @ns.doc('delete_contract')
     @ns.response(204, 'Contrato removido')
     def delete(self, contract_id):
-        return controller.delete_contract(contract_id) 
+        return controller.delete_contract(contract_id)
+
+@ns.route('/<int:contract_id>/files')
+@ns.param('contract_id', 'ID do contrato')
+class ContractFiles(Resource):
+    @ns.doc('get_contract_files')
+    @ns.marshal_list_with(file_model)
+    def get(self, contract_id):
+        """Lista todos os arquivos de um contrato específico"""
+        return controller.get_contract_files(contract_id)
+
+    @ns.doc('upload_contract_file')
+    @ns.expect(ns.parser().add_argument('file', 
+        location='files', 
+        type='FileStorage', 
+        required=True,
+        help='Arquivo do contrato'))
+    @ns.response(200, 'Arquivo enviado com sucesso')
+    def post(self, contract_id):
+        """Faz upload de um arquivo para um contrato específico"""
+        return controller.upload_contract_file(contract_id) 
+    
