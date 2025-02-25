@@ -7,7 +7,7 @@ db = SQLAlchemy()
 
 def create_app():
     app = Flask(__name__)
-    CORS(app, resources={r"/*": {"origins": ["http://localhost:3000", "http://10.2.10.17:2002"], "supports_credentials": True}})
+    CORS(app, resources={r"/*": {"origins": ["http://localhost:3000", "http://10.2.10.17:2002/"], "supports_credentials": True}})
     
     app.config.from_object(Config)
     db.init_app(app)
