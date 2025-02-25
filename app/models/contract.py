@@ -43,7 +43,6 @@ class Contract(db.Model):
             'id': self.id,
             'idtipo': self.idtipo,
             'dia_vencimento': self.dia_vencimento,
-            'tipo_servico': service_type_desc,
             'idfilial': self.idfilial,
             'idfornecedor': self.idfornecedor,
             'valor_contrato': float(self.valor_contrato) if self.valor_contrato else None,

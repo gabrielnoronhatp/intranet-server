@@ -1,6 +1,7 @@
 from app.models.contract import Contract
 from app import db
 from sqlalchemy import text
+from app.models.service_type import ServiceType
 
 class ContractRepository:
     @staticmethod
@@ -35,4 +36,12 @@ class ContractRepository:
     @staticmethod
     def delete(contract):
         contract.cancelado = True
-        db.session.commit() 
+        db.session.commit()
+
+    @staticmethod
+    def get_service_type_by_description(description):
+        return ServiceType.query.filter_by(descricao=description).first()
+
+    @staticmethod
+    def get_service_types_by_partial_description(partial_description):
+        return ServiceType.query.filter(ServiceType.descricao.ilike(f"%{partial_description}%")).all() 
