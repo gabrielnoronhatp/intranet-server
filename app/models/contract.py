@@ -9,6 +9,7 @@ class Contract(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     idtipo = db.Column(db.String(10), db.ForeignKey('intra.ctt_tipo_contrato.id'))
     idfilial = db.Column(db.String(100))
+    data_inicio_contrato = db.Column(db.Date)
     dia_vencimento = db.Column(db.String(2))
     idfornecedor = db.Column(db.String(10))
     banco = db.Column(db.String(100))
@@ -52,6 +53,7 @@ class Contract(db.Model):
             'endereco1': self.endereco1,
             'endereco2': self.endereco2,
             'email1': self.email1,
+            'data_inicio_contrato': self.data_inicio_contrato,
             'banco': self.banco,
             'email2': self.email2,
             'data_venc_contrato': self.data_venc_contrato,

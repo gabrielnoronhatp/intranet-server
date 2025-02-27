@@ -9,6 +9,7 @@ class ContractSchema(Schema):
     valor_contrato = fields.Decimal(places=2)
     nome = fields.Str(required=True)
     telefone1 = fields.Str()
+    data_inicio_contrato = fields.Date(allow_none=True)
     banco = fields.Str(allow_none=True)
 
     telefone2 = fields.Str(allow_none=True)

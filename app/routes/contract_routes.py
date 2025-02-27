@@ -17,6 +17,7 @@ contract_model = ns.model('Contract', {
     'nome': fields.String(required=True, description='Nome'),
     'telefone1': fields.String(description='Telefone principal'),
     'telefone2': fields.String(description='Telefone secundário', allow_null=True),
+    'data_inicio_contrato': fields.Date(description='Data de início do contrato', allow_null=True),
     'endereco1': fields.String(description='Endereço principal'),
     'endereco2': fields.String(description='Endereço secundário', allow_null=True),
     'email1': fields.String(description='Email principal'),
