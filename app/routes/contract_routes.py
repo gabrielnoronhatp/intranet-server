@@ -43,7 +43,6 @@ controller = ContractController()
 # Definindo o modelo para a resposta de arquivo
 @ns.route('/')
 class ContractList(Resource):
-    @cross_origin()
     @ns.doc('list_contracts')
     @ns.param('idtipo', 'ID do tipo de serviço', _in='query')
     @ns.param('nome', 'Nome do contrato', _in='query')
@@ -51,6 +50,8 @@ class ContractList(Resource):
     @ns.param('data_venc_contrato', 'Data de vencimento', _in='query')
     @ns.param('datalanc', 'Data de lançamento', _in='query')
     @ns.param('descricao_tipo', 'Descrição do tipo de serviço', _in='query')
+    @cross_origin(origin='*')
+    
     @ns.marshal_list_with(contract_model)
     def get(self):
         args = request.args

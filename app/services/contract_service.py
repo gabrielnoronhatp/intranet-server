@@ -28,8 +28,7 @@ class ContractService:
         return [service_type.id for service_type in service_types]
 
     def get_all_contracts(self, filters=None):
-        query = Contract.query.filter_by(cancelado=False)
-
+        query = Contract.query
         if filters:
             if 'idtipo' in filters and filters['idtipo']:
                 query = query.filter(Contract.idtipo.ilike(f"%{filters['idtipo']}%"))
