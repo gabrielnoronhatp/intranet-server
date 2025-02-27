@@ -26,6 +26,7 @@ contract_model = ns.model('Contract', {
     'indice': fields.String(description='Índice'),
     'forma_pag': fields.String(description='Forma de pagamento'),
     'agencia': fields.String(description='Agência'),
+    'valor_contrato': fields.Float(description='Valor do contrato'),
     'conta': fields.String(description='Conta'),
     'tipo_chave_pix': fields.String(description='Tipo de chave PIX', allow_null=True),
     'chave_pix': fields.String(description='Chave PIX', allow_null=True),
