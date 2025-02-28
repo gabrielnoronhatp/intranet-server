@@ -11,7 +11,6 @@ class ContractSchema(Schema):
     telefone1 = fields.Str()
     data_inicio_contrato = fields.Date(allow_none=True)
     banco = fields.Str(allow_none=True)
-
     telefone2 = fields.Str(allow_none=True)
     endereco1 = fields.Str()
     endereco2 = fields.Str(allow_none=True)
